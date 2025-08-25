@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araaaz - Exquisite Jewelry Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f8f4f0 0%, #e8ddd4 100%);
+        }
+        
+        .dark-feminine-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 100%);
+        }
+        
+        .jewelry-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .jewelry-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .cart-item {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="font-playfair text-2xl font-bold text-gray-900">Araaaz</h1>
+                    <span class="ml-2 text-sm text-gray-500 font-light">Exquisite Jewelry</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#bracelets" class="text-gray-700 hover:text-rose-600 transition-colors">Bracelets</a>
+                  
+                    <a href="#earrings" class="text-gray-700 hover:text-rose-600 transition-colors">Earrings</a>
+                    
+                    <a href="#combo-sets" class="text-gray-700 hover:text-rose-600 transition-colors">Combo Sets</a>
+                  <!-- <a href="#customization" class="text-gray-700 hover:text-rose-600 transition-colors">Custom</a>-->
+                      <a href="#necklaces" class="text-gray-700 hover:text-rose-600 transition-colors">Necklaces</a>
+            
+                    <a href="#rings" class="text-gray-700 hover:text-rose-600 transition-colors">Rings</a>
+                    
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleWishlist()" class="relative p-2 text-gray-700 hover:text-rose-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                        <span id="wishlist-count" class="absolute -top-1 -right-1 bg-rose-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="toggleCart()" class="relative p-2 text-gray-700 hover:text-rose-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0V19a2 2 0 002 2h7a2 2 0 002-2v-4"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-rose-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-playfair text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Discover Your Perfect
+                <span class="text-rose-600">Jewelry</span>
+            </h2>
+            <p class="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+                Handcrafted pieces that tell your unique story. From elegant classics to bold statements.
+            </p>
+            <button onclick="document.getElementById('bracelets').scrollIntoView({behavior: 'smooth'})" 
+                    class="bg-rose-600 text-white px-8 py-3 rounded-full font-medium hover:bg-rose-700 transition-colors">
+                Shop Collection
+            </button>
+        </div>
+    </section>
+
+    <!-- Bracelets Section -->
+    <section id="bracelets" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-playfair text-4xl font-bold text-center mb-12 text-gray-900">Bracelets</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet4.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet1</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet1', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet1', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet3.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet2</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet2', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet2', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet2.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet3</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet3', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet3', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b17.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet4</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet4', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet4', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet1.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet5</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet5', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet5', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet7.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet6</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet6', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet6', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet8.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet7</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet7', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet7', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet6.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet8</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet8', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet8', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet9.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet9</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet9', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet9', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./bracelet10.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet10</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet10', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet10', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b11.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet11</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet11', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet11', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+ <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b12.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet12</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet12', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet12', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b13.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet13</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet13', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet13', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b14.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet14</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet14', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet14', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b16.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet15</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet15', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet15', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+ <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./b15.jpg" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Bracelet16</h4>
+                        <p class="text-gray-600 mb-4">Delicate chain with subtle charm details</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹200</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('bracelet16', 200)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('bracelet16', 200)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+  
+
+    <!-- Earrings Section -->
+    <section id="earrings" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-playfair text-4xl font-bold text-center mb-12 text-gray-900">Earrings</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./earring1.jpg" alt=" Earrings" class="w-full h-full object-cover">
+                        
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Earrings1</h4>
+                        <p class="text-gray-600 mb-4">Sparkling crystal drops for special occasions</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹50</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Earrings1', 50)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Earrings1', 50)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./earring2.jpg" alt=" Earrings" class="w-full h-full object-cover">
+                        
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Earrings2</h4>
+                        <p class="text-gray-600 mb-4">Sparkling crystal drops for special occasions</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹50</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Earrings2', 50)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Earrings2', 50)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Combo Sets Section -->
+    <section id="combo-sets" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-playfair text-4xl font-bold text-center mb-12 text-gray-900">Combo Sets</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./c2.jpg" alt="" class="w-full h-full object-cover">
+                     
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Combo set for bestfriends</h4>
+                        <p class="text-gray-600 mb-4">combo sets</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹400</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Combo set 1', 400)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Combo set for bestfriends', 400)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./c3.jpg" alt="" class="w-full h-full object-cover">
+                     
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Combo set pink</h4>
+                        <p class="text-gray-600 mb-4">earrings & bracelet 1</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹400</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Combo set 2', 400)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Combo set pink', 400)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./c4.jpg" alt="" class="w-full h-full object-cover">
+                     
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Combo set blue</h4>
+                        <p class="text-gray-600 mb-4"> earrings & bracelet 2</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹400</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Combo set 3', 400)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Combo set blue', 400)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customisation Section -->
+   <!-- <section id="customization" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-playfair text-4xl font-bold text-center mb-12 text-gray-900">Customization</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./cos1.jpg" alt="" class="w-full h-full object-cover">
+                     
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Customized </h4>
+                        <p class="text-gray-600 mb-4">Customized </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹350</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Customized ', 350)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Customized ', 350)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./cos2.jpg" alt="" class="w-full h-full object-cover">
+                     
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Customized </h4>
+                        <p class="text-gray-600 mb-4">Customized </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹350</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Customized ', 350)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Customized ', 350)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="jewelry-card bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center">
+                        <img src="./cos3.jpg" alt="" class="w-full h-full object-cover">
+                     
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-playfair text-xl font-semibold mb-2">Customized </h4>
+                        <p class="text-gray-600 mb-4">Customized </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-rose-600">₹350</span>
+                            <div class="flex space-x-2">
+                                <button onclick="toggleWishlistItem('Customized ', 350)" 
+                                        class="p-2 border border-rose-600 text-rose-600 rounded-lg hover:bg-rose-50 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                </button>
+                                <button onclick="addToCart('Customized ', 350)" 
+                                        class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             <div class="w-full bg-white rounded-lg shadow-lg p-8 mb-8">
+  <h4 class="font-playfair text-2xl font-semibold mb-6">Request Custom Design</h4>
+  <form class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+              <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+          </div>
+          <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+              <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+          </div>
+      </div>
+      
+      <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Jewelry Type</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+              <option>Select Type</option>
+              <option>Ring</option>
+              <option>Necklace</option>
+              <option>Earrings</option>
+              <option>Bracelet</option>
+              <option>Other</option>
+          </select>
+      </div>
+      
+      <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Design Description</label>
+          <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent" 
+                    placeholder="Describe your vision, preferred materials, style, etc."></textarea>
+      </div>
+      
+      <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Style</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+              <option>Select Style</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+          </select>
+      </div>
+      
+      <button type="button" onclick="submitCustomRequest()" 
+              class="w-full bg-rose-600 text-white py-3 rounded-lg font-medium hover:bg-rose-700 transition-colors">
+          Submit Custom Request
+      </button>
+      <p class="text-sm text-gray-500 mt-2">
+          We'll review your request and contact you within 24 hours with a custom design proposal.
+      </p>
+  </form>
+</div>
+
+                
+            </div>
+        </div>
+    </section> -->
+
+  <!-- Necklaces Section -->
+    <section id="necklaces" class="py-16 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-playfair text-4xl font-bold text-center mb-12 text-gray-900">Necklaces</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                           <h1 style="
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ff6f61;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #d5c7c6, #d0cdc9, #fb6acd);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border: 2px solid #ff6f61;
+  border-radius: 12px;
+  animation: pulse 1.5s infinite;
+">
+  Coming Soon
+</h1>
+ 
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Rings Section -->
+    <section id="rings" class="py-16 gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="font-playfair text-4xl font-bold text-center mb-12 text-gray-900">Rings</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <h1 style="
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ff6f61;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, #d5c7c6, #d0cdc9, #fb6acd);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border: 2px solid #ff6f61;
+  border-radius: 12px;
+  animation: pulse 1.5s infinite;
+">
+  Coming Soon
+</h1>
+ 
+            </div>
+        </div>
+    </section>
+
+  
+    <!-- Customization Section -->
+   <!-- <section id="customization" class="py-16 gradient-bg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="font-playfair text-4xl font-bold mb-6 text-gray-900">Custom Jewelry</h3>
+            <p class="text-xl text-gray-700 mb-8">
+                Create something uniquely yours. Our artisans will bring your vision to life with personalized designs.
+            </p>
+            
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h4 class="font-playfair text-2xl font-semibold mb-6">Request Custom Design</h4>
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jewelry Type</label>
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+                            <option>Select Type</option>
+                            <option>Ring</option>
+                            <option>Necklace</option>
+                            <option>Earrings</option>
+                            <option>Bracelet</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Design Description</label>
+                        <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent" 
+                                  placeholder="Describe your vision, preferred materials, style, etc."></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget Range</label>
+                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent">
+                            <option>Select Budget</option>
+                            <option>₹2,000 - ₹5,000</option>
+                            <option>₹5,000 - ₹10,000</option>
+                            <option>₹10,000 - ₹20,000</option>
+                            <option>₹20,000+</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" onclick="submitCustomRequest()" 
+                            class="w-full bg-rose-600 text-white py-3 rounded-lg font-medium hover:bg-rose-700 transition-colors">
+                        Submit Custom Request
+                    </button>
+                    <p class="text-sm text-gray-500 mt-2">
+                        We'll review your request and contact you within 24 hours with a custom design proposal.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section> -->
+
+     <!-- Wishlist Sidebar -->
+    <div id="wishlist-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-playfair text-2xl font-bold">My Wishlist</h3>
+                <button onclick="toggleWishlist()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="wishlist-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-500 text-center">Your wishlist is empty</p>
+        </div>
+        
+        <div class="border-t p-6">
+            <button onclick="addAllToCart()" class="w-full bg-rose-600 text-white py-3 rounded-lg font-medium hover:bg-rose-700 transition-colors mb-2">
+                Add All to Cart
+            </button>
+            <button onclick="clearWishlist()" class="w-full bg-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                Clear Wishlist
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-playfair text-2xl font-bold">Shopping Cart</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-500 text-center">Your cart is empty</p>
+        </div>
+        
+        <div class="border-t p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold text-lg">Total:</span>
+                <span id="cart-total" class="font-bold text-2xl text-rose-600">₹0</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-rose-600 text-white py-3 rounded-lg font-medium hover:bg-rose-700 transition-colors">
+                Proceed to Checkout
+            </button>
+            <p class="text-sm text-gray-500 text-center mt-2">
+                You'll receive an email confirmation after placing your order
+            </p>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleCart()"></div>
+    
+    <!-- Wishlist Overlay -->
+    <div id="wishlist-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleWishlist()"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="font-playfair text-2xl font-bold mb-4">Araaaz</h4>
+                    <p class="text-gray-300">Handcrafted pieces that tell your unique story. From elegant classics to bold statements.</p>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4">Quick Links</h5>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#bracelets" class="hover:text-white transition-colors">Bracelets</a></li>
+                       <li><a href="#combo-sets" class="hover:text-white transition-colors">Combo Sets</a></li>
+                        <li><a href="#earrings" class="hover:text-white transition-colors">Earrings</a></li>
+                       
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4">Collections Coming Soon</h5>
+                    <ul class="space-y-2 text-gray-300">
+                        
+                        <li><a href="#dark-feminine" class="hover:text-white transition-colors">Dark Feminine</a></li>
+                        <li><a href="#customization" class="hover:text-white transition-colors">Custom Jewelry</a></li>
+                         <li><a href="#necklaces" class="hover:text-white transition-colors">Necklaces</a></li>
+                          <li><a href="#rings" class="hover:text-white transition-colors">Rings</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="font-semibold mb-4">Contact</h5>
+                    <div class="text-gray-300 space-y-2">
+                        <p>📧 Inayaamalik26@gmail.com </p>
+                        <p>📱 +91 97972 83839</p>
+                        <p>📍 Kashmir, India</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2025 Araaaz Jewelry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // EmailJS Configuration
+        // Replace these with your actual EmailJS credentials
+        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';
+        const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE';
+        const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE';
+        
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+        
+        let cart = [];
+        let cartTotal = 0;
+        let wishlist = [];
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            updateCartDisplay();
+            showNotification(`${name} added to cart!`);
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartDisplay();
+        }
+
+        function updateQuantity(name, change) {
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(name);
+                } else {
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-500 text-center">Your cart is empty</p>';
+                cartCount.textContent = '0';
+                cartTotal = 0;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item flex justify-between items-center p-4 border-b">
+                        <div class="flex-1">
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <p class="text-gray-600">₹${item.price.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateQuantity('${item.name}', -1)" 
+                                    class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300">
+                                -
+                            </button>
+                            <span class="w-8 text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity('${item.name}', 1)" 
+                                    class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300">
+                                +
+                            </button>
+                            <button onclick="removeFromCart('${item.name}')" 
+                                    class="ml-2 text-red-500 hover:text-red-700">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            }
+            
+            cartTotalElement.textContent = `₹${cartTotal.toLocaleString()}`;
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            const wishlistSidebar = document.getElementById('wishlist-sidebar');
+            
+            // Close wishlist if open
+            if (!wishlistSidebar.classList.contains('translate-x-full')) {
+                toggleWishlist();
+            }
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+            
+            // Get customer details (you can add a form for this)
+            const customerName = prompt('Please enter your name:') || 'Anonymous Customer';
+            const customerEmail = prompt('Please enter your email:') || 'no-email@provided.com';
+            const customerPhone = prompt('Please enter your phone number:') || 'Not provided';
+            
+            // Create order summary
+            const orderSummary = cart.map(item => 
+                `${item.name} x${item.quantity} - ₹${(item.price * item.quantity).toLocaleString()}`
+            ).join('\n');
+            
+            // Prepare email data
+            const emailData = {
+                customer_name: customerName,
+                customer_email: customerEmail,
+                customer_phone: customerPhone,
+                order_items: orderSummary,
+                total_amount: `₹${cartTotal.toLocaleString()}`,
+                order_date: new Date().toLocaleString(),
+                order_id: 'ARZ-' + Date.now()
+            };
+            
+            // Show loading state
+            showNotification('Processing your order...', 'info');
+            
+            // Send email using EmailJS
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData)
+                .then(function(response) {
+                    console.log('Email sent successfully:', response);
+                    showNotification('Order placed successfully! You will receive a confirmation email shortly.', 'success');
+                    
+                    // Clear cart
+                    cart = [];
+                    updateCartDisplay();
+                    toggleCart();
+                })
+                .catch(function(error) {
+                    console.error('Email sending failed:', error);
+                    showNotification('Order received but email notification failed. We will contact you manually.', 'warning');
+                    
+                    // Still clear cart as order was "placed"
+                    cart = [];
+                    updateCartDisplay();
+                    toggleCart();
+                });
+        }
+
+        function submitCustomRequest() {
+            const form = event.target.closest('form');
+            const formData = new FormData(form);
+            
+            // Get form values
+            const customerName = form.querySelector('input[type="text"]').value;
+            const customerEmail = form.querySelector('input[type="email"]').value;
+            const jewelryType = form.querySelector('select').value;
+            const description = form.querySelector('textarea').value;
+            const budget = form.querySelectorAll('select')[1].value;
+            
+            if (!customerName || !customerEmail || !description) {
+                showNotification('Please fill in all required fields!', 'error');
+                return;
+            }
+            
+            // Prepare email data for custom request
+            const customRequestData = {
+                customer_name: customerName,
+                customer_email: customerEmail,
+                jewelry_type: jewelryType,
+                design_description: description,
+                budget_range: budget,
+                request_date: new Date().toLocaleString(),
+                request_id: 'CUSTOM-' + Date.now()
+            };
+            
+            showNotification('Submitting your custom request...', 'info');
+            
+            // Send custom request email
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, customRequestData)
+                .then(function(response) {
+                    console.log('Custom request sent successfully:', response);
+                    showNotification('Custom request submitted! We will contact you within 24 hours.', 'success');
+                    form.reset();
+                })
+                .catch(function(error) {
+                    console.error('Custom request email failed:', error);
+                    showNotification('Request received but email notification failed. We will contact you manually.', 'warning');
+                });
+        }
+
+       // Wishlist Functions
+        function toggleWishlistItem(name, price) {
+            const existingItem = wishlist.find(item => item.name === name);
+            
+            if (existingItem) {
+                wishlist = wishlist.filter(item => item.name !== name);
+                showNotification(`${name} removed from wishlist!`, 'info');
+            } else {
+                wishlist.push({ name, price });
+                showNotification(`${name} added to wishlist!`);
+            }
+            
+            updateWishlistDisplay();
+            updateWishlistButtons();
+            
+            // Prevent event bubbling
+            event.stopPropagation();
+        }
+
+      function removeFromWishlist(name) {
+            wishlist = wishlist.filter(item => item.name !== name);
+            updateWishlistDisplay();
+            updateWishlistButtons();
+      } 
+
+        function updateWishlistDisplay() {
+            const wishlistItems = document.getElementById('wishlist-items');
+            const wishlistCount = document.getElementById('wishlist-count');
+            
+            if (wishlist.length === 0) {
+                wishlistItems.innerHTML = '<p class="text-gray-500 text-center">Your wishlist is empty</p>';
+                wishlistCount.textContent = '0';
+            } else {
+                wishlistItems.innerHTML = wishlist.map(item => `
+                    <div class="cart-item flex justify-between items-center p-4 border-b">
+                        <div class="flex-1">
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <p class="text-gray-600">₹${item.price.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="addToCart('${item.name}', ${item.price})" 
+                                    class="bg-rose-600 text-white px-3 py-1 rounded text-sm hover:bg-rose-700 transition-colors">
+                                Add to Cart
+                            </button>
+                            <button onclick="removeFromWishlist('${item.name}')" 
+                                    class="text-red-500 hover:text-red-700">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                wishlistCount.textContent = wishlist.length;
+            }
+        }
+
+        function updateWishlistButtons() {
+            // Update heart button states for all products
+            const buttons = document.querySelectorAll('.wishlist-btn[data-item-name]');
+            buttons.forEach(button => {
+                const itemName = button.getAttribute('data-item-name');
+                const isInWishlist = wishlist.some(item => item.name === itemName);
+                const svg = button.querySelector('svg');
+                
+                if (isInWishlist) {
+                    svg.setAttribute('fill', 'currentColor');
+                    button.classList.add('bg-rose-600', 'text-white');
+                    button.classList.remove('border-rose-600', 'text-rose-600', 'hover:bg-rose-50');
+                } else {
+                    svg.setAttribute('fill', 'none');
+                    button.classList.remove('bg-rose-600', 'text-white');
+                    button.classList.add('border-rose-600', 'text-rose-600', 'hover:bg-rose-50');
+                }
+            });
+        }
+
+        function toggleWishlist() {
+            const sidebar = document.getElementById('wishlist-sidebar');
+            const overlay = document.getElementById('wishlist-overlay');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            
+            // Close cart if open
+            if (!cartSidebar.classList.contains('translate-x-full')) {
+                toggleCart();
+            }
+            
+            if (sidebar.classList.contains('translate-x-full')) {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function addAllToCart() {
+            if (wishlist.length === 0) {
+                showNotification('Your wishlist is empty!', 'error');
+                return;
+            }
+            
+            wishlist.forEach(item => {
+                addToCart(item.name, item.price);
+            });
+            
+            showNotification(`Added ${wishlist.length} items to cart!`);
+            clearWishlist();
+        }
+
+        function clearWishlist() {
+            wishlist = [];
+            updateWishlistDisplay();
+            updateWishlistButtons();
+            showNotification('Wishlist cleared!', 'info');
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            let bgColor = 'bg-green-500';
+            
+            if (type === 'error') bgColor = 'bg-red-500';
+            else if (type === 'warning') bgColor = 'bg-yellow-500';
+            else if (type === 'info') bgColor = 'bg-blue-500';
+            
+            notification.className = `notification ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        // Mobile menu toggle (if needed)
+        function toggleMobileMenu() {
+            // Implementation for mobile menu if needed
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97409659c6864236',t:'MTc1NjAxNDc4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
