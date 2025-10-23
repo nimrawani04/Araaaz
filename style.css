@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.font-playfair { 
+    font-family: 'Playfair Display', serif;
+}
+.font-inter { 
+    font-family: 'Inter', sans-serif;
+}
+
+/* Light Mode Gradients */
+.gradient-bg {
+    background: linear-gradient(135deg, #f8f4f0 0%, #e8ddd4 100%);
+}
+
+/* Dark Mode Gradients & Backgrounds */
+.dark .gradient-bg {
+    background: linear-gradient(135deg, #412B6B 0%, #211832 100%);
+}
+
+.dark body {
+    background-color: #111827; /* gray-900 */
+}
+
+.jewelry-card {
+    transition: all 0.3s ease;
+}
+
+.jewelry-card:hover {
+    transform: translateY(-8px);
+}
+
+.cart-item {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 300px;
+    animation: slideInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+}
+
